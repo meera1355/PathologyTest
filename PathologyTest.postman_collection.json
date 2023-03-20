@@ -1,0 +1,3618 @@
+{
+	"info": {
+		"_postman_id": "674c8ec9-8f0d-4d39-a6be-a127e8892bc1",
+		"name": "Pathology Specimen Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1639131"
+	},
+	"item": [
+		{
+			"name": "Valid Case Check",
+			"item": [
+				{
+					"name": "Valid Case",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful Request\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"pm.test(\"To Check case is valid\", function() {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData.message).include('Case valid')",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\":\"prostate\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+							"protocol": "https",
+							"host": [
+								"lucent-trifle-ba3d62",
+								"netlify",
+								"app"
+							],
+							"path": [
+								".netlify",
+								"functions",
+								"checkcase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Case to check unsupported method",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful Request\", () => {",
+									"    pm.response.to.have.status(400);",
+									"})",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\":\"prostate\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+							"protocol": "https",
+							"host": [
+								"lucent-trifle-ba3d62",
+								"netlify",
+								"app"
+							],
+							"path": [
+								".netlify",
+								"functions",
+								"checkcase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Case -Should not accept the endpoint without HTTPS",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful Request\", () => {",
+									"    pm.response.to.have.status(400);",
+									"})",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\":\"prostate\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "lucent-trifle-ba3d62.netlify.app/.netlify/functions",
+							"host": [
+								"lucent-trifle-ba3d62",
+								"netlify",
+								"app"
+							],
+							"path": [
+								".netlify",
+								"functions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Check Content-type",
+			"item": [
+				{
+					"name": "Validate content type-JSON",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Content-Type is application/json\", function () {",
+									"    pm.expect(postman.getResponseHeader(\"Content-Type\")).to.equal(\"application/json\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\":\"prostate\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+							"protocol": "https",
+							"host": [
+								"lucent-trifle-ba3d62",
+								"netlify",
+								"app"
+							],
+							"path": [
+								".netlify",
+								"functions",
+								"checkcase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate invalid content type-TEXT",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Content-Type is application/json\", function () {",
+									"    pm.expect(postman.getResponseHeader(\"Content-Type\")).to.equal(\"application/json\");",
+									"});",
+									"",
+									"pm.test(\"Successful Request\", () => {",
+									"    pm.response.to.have.status(415);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\":\"prostate\"\n}",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+							"protocol": "https",
+							"host": [
+								"lucent-trifle-ba3d62",
+								"netlify",
+								"app"
+							],
+							"path": [
+								".netlify",
+								"functions",
+								"checkcase"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Case Properties Validation",
+			"item": [
+				{
+					"name": "UUID Check",
+					"item": [
+						{
+							"name": "Invalid Case - Missing UUID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid case_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n     \"tissue_type\":\"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - Incorrect UUID-more than 32 chars",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid case_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474edddd3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}\n   ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - Incorrect UUID-less than 32 chars",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid case_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a47e36-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n     \"tissue_type\":\"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - Incorrect UUID-invalid format-Special char",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid case_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a47e36-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n     \"tissue_type\":\"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - Incorrect UUID-Not unique id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid case_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[{\n    \"case_id\": \"a47e36-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n     \"tissue_type\":\"prostate\"\n},\n\n{\n    \"case_id\": \"a47e36-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234569^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John^Duplicate\",\n    \"dob\" : \"19700401\",\n     \"tissue_type\":\"prostate\"\n}\n\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - Incorrect UUID-Empty String",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid case_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a.   -89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n     \"tissue_type\":\"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - Incorrect UUID-Invalid Format-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid case_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a234-4bb9-be00-cba34-s9876\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n     \"tissue_type\":\"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Patient_id Check",
+					"item": [
+						{
+							"name": "Valid Case - Valid Patient_id -String with 5 components, delimited by the ^ symbol",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Case valid')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - Invalid Patient_id -String with 5 components NOT delimited by the ^ symbol",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"12345671ISONN123MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Valid Case - Valid Patient_id -ID Number-Contains only 1 digit",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Case valid')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - Incorrect Patient_id -Blank/Empty String",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - Incorrect Patient_id -ID Number-Contains alphabets",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"123456a^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - Incorrect Patient_id -ID Number-Contains special chars",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"123456%^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - Incorrect Patient_id -ID Number-Contains more than 15 digits",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"2345678910111215^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - Incorrect Patient_id -ID Number-Contains negative numbers",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"-1^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - Incorrect Patient_id -Flag-empty",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - Incorrect Patient_id -Flag-contains strings",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^p^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - Incorrect Patient_id -Flag-incorrect format",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^00^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - Incorrect Patient_id -Flag-decimal",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^.1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - Incorrect Patient_id -Flag-special chars",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^%^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Valid Case - Patient_id -Flag-Accepts 1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Case valid')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Valid Case - Patient_id -Flag-Accepts 0",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Case valid')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Assigning Authority Check",
+					"item": [
+						{
+							"name": "Valid Case-Assigning Authority - Accepts - BCV",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Case valid')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^BCV^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Valid Case-Assigning Authority - Accepts - ISO",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Case valid')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Valid Case-Assigning Authority - Accepts - M10",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Case valid')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^M10^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Valid Case-Assigning Authority - Accepts - M11",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Case valid')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^M11^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Valid Case-Assigning Authority - Accepts - NPI",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Case valid')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^NPI^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-Assigning Authority  - case sensitive -npi",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^npi^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-Assigning Authority  - less than 3 character code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^NP^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-Assigning Authority  - more than 3 character code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^NPINPI^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-Assigning Authority  - contains number/invalid  set",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^NP5^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-Assigning Authority  - contains empty",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Identifier Type Code Check",
+					"item": [
+						{
+							"name": "Valid Case-Identifier Type Code - valid digit -5 character string; 2 letters and 3 digits",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Case valid')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-Identifier Type Code - invalid digit -5 character string; 3 letters and 2 digits",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^12NNN^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-Identifier Type Code - invalid digit -empty",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-Identifier Type Code - invalid digit -incorrect format",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^11pjk^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-Identifier Type Code - invalid digit -less than 5 chars",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN23^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Assigning Facility Check",
+					"item": [
+						{
+							"name": "Valid Case-Assigning Facility - Only accepts MC",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Case valid')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-Assigning Facility - Not MC",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^BCV^NN123^MO\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-Assigning Facility - invalid value-empty",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^BCV^NN123^\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-Assigning Facility - invalid value-numbers",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^12\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-Assigning Facility - invalid value-case sensitive 'mc'",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^BCV^NN123^mc\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-Assigning Facility - invalid value-special chars- MC%",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_id')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^BCV^NN123^MC%\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Patient Name Check",
+					"item": [
+						{
+							"name": "Valid Case-Patient Name - accepts  string with 2 components",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Case valid')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Valid Case-Patient Name - accepts  string with 3 components",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Case valid')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John^Yen\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-Patient Name - invalid value - 4 components",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_name')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John^Yen^Rty\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-Patient Name - invalid value - 1 components",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_name')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-Patient Name - invalid value - empty string",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_name')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-Patient Name - invalid value - numbers",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_name')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smit12^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-Patient Name - invalid value - special chars",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid patient_name')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smit1%^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Valid Case-Patient Name - 2 components- case sensitive string",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Case valid')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"SMITH^JOHN\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DOB Check",
+					"item": [
+						{
+							"name": "Valid Case-DOB - Correct format-YYYYMMDD",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Case valid')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-DOB - incorrect format-YYYY-MM-DD",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include(\"Invalid dob\")",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"1970-04-01\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-DOB - incorrect format-DDMMYYY",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include(\"Invalid dob\")",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"01031900\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-DOB - incorrect format-MMDDYYY",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include(\"Invalid dob\")",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"01031900\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-DOB - incorrect format-future year",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include(\"Invalid dob\")",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" :\"20250401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-DOB - incorrect format-invalid year-1899",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include(\"Invalid dob\")",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" :\"18990401\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case-DOB - incorrect value-empty",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid dob')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" :\"\",\n    \"tissue_type\": \"prostate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "tissue_type Check",
+					"item": [
+						{
+							"name": "Valid Case - tissue_type - accepts - prostate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Case valid')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Valid Case - tissue_type - accepts - breast",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Case valid')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"colorectal\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Valid Case - tissue_type - accepts - colorectal",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Case valid')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"breast\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Valid Case - tissue_type - accepts - skin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Case valid')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"breast\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - tissue_type - should accept any other tissue_type",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid tissue_type')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"sss\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - tissue_type - case sensitive -BREAST",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid tissue_type')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"BREAST\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - tissue_type - Two tissue types -skin,breast",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid tissue_type')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"skinorbreast\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Case - tissue_type - Two tissue types -empty",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful Request\", () => {",
+											"    pm.response.to.have.status(422);",
+											"})",
+											"",
+											"pm.test(\"To Check case is valid\", function() {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).include('Invalid tissue_type')",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+									"protocol": "https",
+									"host": [
+										"lucent-trifle-ba3d62",
+										"netlify",
+										"app"
+									],
+									"path": [
+										".netlify",
+										"functions",
+										"checkcase"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Check Mandatory Case Properties",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\",\n    \"tissue_type\": \"prostate\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+							"protocol": "https",
+							"host": [
+								"lucent-trifle-ba3d62",
+								"netlify",
+								"app"
+							],
+							"path": [
+								".netlify",
+								"functions",
+								"checkcase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Case Without Mandatory Properties",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful Request\", () => {",
+									"    pm.response.to.have.status(400);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"case_id\": \"a474e3e6-89ad-4bb9-be00-cba347e2a001\",\n    \"patient_id\": \"1234567^1^ISO^NN123^MC\",\n    \"patient_name\": \"Smith^John\",\n    \"dob\" : \"19700401\"\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://lucent-trifle-ba3d62.netlify.app/.netlify/functions/checkcase",
+							"protocol": "https",
+							"host": [
+								"lucent-trifle-ba3d62",
+								"netlify",
+								"app"
+							],
+							"path": [
+								".netlify",
+								"functions",
+								"checkcase"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
